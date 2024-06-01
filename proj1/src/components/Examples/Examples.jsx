@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { CORE_CONCEPTS, EXAMPLES } from "./data";
-import Header from "./components/Header/Header";
-import CoreConcept from "./components/CoreConcept/CoreConcept";
-import TabButton from "./components/TabButton/TabButton";
+import Section from "../Section/Section";
+import Tabs from "../Tabs/Tabs";
+import TabButton from "../TabButton/TabButton";
+import { EXAMPLES } from "../../data";
 
-function App() {
+export default function Examples() {
   const [selectedTab, setSelectedTab] = useState();
 
   function handleTabClick(tabContent) {
@@ -26,21 +26,10 @@ function App() {
   }
 
   return (
-    <div>
-      <Header />
-
-      <main>
-        <section id="core-concepts">
-          <h2>Core Concepts</h2>
-          <ul>
-            {CORE_CONCEPTS.map((data) => (
-              <CoreConcept { ...data } key={ data.title } />
-            ))}
-          </ul>
-        </section>
-        <section id="examples">
-          <h2>Examples</h2>
-          <menu>
+    <Section id="examples" title="Examples">
+      <Tabs
+        buttons={
+          <>
             <TabButton
               isSelected={selectedTab === "components"}
               onClick={() => handleTabClick("components")}
@@ -65,12 +54,11 @@ function App() {
             >
               State
             </TabButton>
-          </menu>
-          {tabContent}
-        </section>
-      </main>
-    </div>
+          </>
+        }
+      >
+        {tabContent}
+      </Tabs>
+    </Section>
   );
 }
-
-export default App;
